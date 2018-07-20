@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t sre_challenge .
+
+after_script:
+  - docker images
+
+befor_deploy:
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+deploy:
+  provider: script
+  script: docker push srechallenge/srechallenge
+  on:
+    branch: master

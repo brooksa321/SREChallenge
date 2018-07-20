@@ -1,9 +1,10 @@
 sudo: required
+
 services:
   - docker
 
 script:
-  - docker build -t sre_challenge .
+  - docker build -t srechallenge .
 
 after_script:
   - docker images

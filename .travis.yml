@@ -11,8 +11,9 @@ after_script:
 
 before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+  - docker tag srechallenge srechallenge/srechallenge:latest
 deploy:
   provider: script
-  script: docker push srechallenge/srechallenge
+  script: docker push srechallenge/srechallenge:latest
   on:
     branch: master

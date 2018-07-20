@@ -2,6 +2,8 @@
 
 ## Temperature Conversion Check
 
+Teperature conversion equations used in this application were found at <https://www.rapidtables.com/convert/temperature/index.html>
+
 ### Running with Docker
 
 1) Install Docker (<https://www.docker.com/community-edition>)

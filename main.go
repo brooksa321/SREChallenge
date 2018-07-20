@@ -69,6 +69,7 @@ func rankineConversions(temp float64, target string) float64 {
 	return rankConv
 }
 
+//Converts temperatures from strings to floats with error validation
 func strToFloat(num string) float64 {
 	tempTest, err := strconv.ParseFloat(num, 64)
 	if err != nil {

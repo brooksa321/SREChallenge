@@ -5,15 +5,13 @@ services:
 
 script:
   - docker build -t srechallenge .
-
-after_script:
-  - docker images
-
-before_deploy:
-  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-  - docker tag srechallenge srechallenge/srechallenge:latest
+  
 deploy:
   provider: script
-  script: docker push srechallenge/srechallenge:latest
+  script:
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+    - docker tag srechallenge srechallenge/srechallenge:latest 
+    - docker push srechallenge/srechallenge:latest
+    
   on:
     branch: master

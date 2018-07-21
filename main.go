@@ -77,7 +77,6 @@ func strToFloat(num string) float64 {
 	}
 
 	roundTemp := fmt.Sprintf("%.1f", tempTest)
-	fmt.Println(roundTemp)
 	temperature, _ := strconv.ParseFloat(roundTemp, 64)
 
 	return temperature

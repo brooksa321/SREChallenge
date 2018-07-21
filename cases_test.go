@@ -5,7 +5,7 @@ var fahrenheitTests = []struct {
 	target   string
 	expected float64
 }{
-	{84.2, "rankine", 543.9},
+	{84.2, "rankine", 542.9},
 	{84.2, "celsius", 29},
 	{84.2, "kelvin", 302.1},
 }

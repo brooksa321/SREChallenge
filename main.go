@@ -16,11 +16,13 @@ func kelvinConversions(temp float64, target string) float64 {
 	case target == "celsius":
 		kelvConv = temp - 273.15
 	case target == "fahrenheit":
-		kelvConv = temp*(9/5) - 459.67
+		kelvConv = temp*9/5 - 459.67
 	case target == "rankine":
-		kelvConv = temp * (9 / 5)
+		kelvConv = temp * 9 / 5
 	}
 
+	kelvConv = roundFloat(kelvConv)
+	fmt.Printf("%v kelvin is %v %v \n", temp, kelvConv, target)
 	return kelvConv
 }
 
@@ -33,9 +35,11 @@ func celsiusConversions(temp float64, target string) float64 {
 	case target == "fahrenheit":
 		celsConv = temp*9/5 + 32
 	case target == "rankine":
-		celsConv = (temp + 273.15) * (9 / 5)
+		celsConv = (temp + 273.15) * 9 / 5
 	}
 
+	celsConv = roundFloat(celsConv)
+	fmt.Printf("%v celsius is %v %v \n", temp, celsConv, target)
 	return celsConv
 }
 
@@ -47,11 +51,12 @@ func fahrenheitConversions(temp float64, target string) float64 {
 		fahrConv = (temp + 459.67) * 5 / 9
 	case target == "celsius":
 		fahrConv = (temp - 32) * 5 / 9
-		fmt.Println(fahrConv)
 	case target == "rankine":
 		fahrConv = temp + 459.67
 	}
 
+	fahrConv = roundFloat(fahrConv)
+	fmt.Printf("%v fahrenheit is %v %v \n", temp, fahrConv, target)
 	return fahrConv
 }
 
@@ -67,6 +72,8 @@ func rankineConversions(temp float64, target string) float64 {
 		rankConv = (temp - 491.67) * 5 / 9
 	}
 
+	rankConv = roundFloat(rankConv)
+	fmt.Printf("%v rankine is %v %v \n", temp, rankConv, target)
 	return rankConv
 }
 
@@ -74,23 +81,30 @@ func rankineConversions(temp float64, target string) float64 {
 func strToFloat(num string) float64 {
 	tempTest, err := strconv.ParseFloat(num, 64)
 	if err != nil {
-		log.Fatalln("invalid")
+		log.Fatalln("INVALID")
 	}
 
-	roundTemp := fmt.Sprintf("%.1f", tempTest)
-	temperature, _ := strconv.ParseFloat(roundTemp, 64)
+	temperature := roundFloat(tempTest)
 
 	return temperature
 }
 
+//Validates Student Response to Authorotative Answer
 func checkResp(answer float64, response float64) string {
 	var check string
 	if answer == response {
-		check = "correct"
+		check = "CORRECT"
 	} else {
-		check = "incorrect"
+		check = "INCORRECT"
 	}
 	return check
+}
+
+func roundFloat(temp float64) float64 {
+	rounded := fmt.Sprintf("%.1f", temp)
+	newFloat, _ := strconv.ParseFloat(rounded, 64)
+
+	return newFloat
 }
 
 func main() {
@@ -119,18 +133,19 @@ func main() {
 	//Set input Unit
 	inputUnit := strings.ToLower(inputSplit[1])
 
+	//Set and error check input temp
 	temperature := strToFloat(inputSplit[0])
 	response := strToFloat(inputResp)
 
 	//Selects which conversion to run based on input unit
 	switch {
 	case inputUnit == "kelvin":
-		fmt.Println(checkResp(kelvinConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(kelvinConversions(temperature, targetUnits), response))
 	case inputUnit == "celsius":
-		fmt.Println(checkResp(celsiusConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(celsiusConversions(temperature, targetUnits), response))
 	case inputUnit == "fahrenheit":
-		fmt.Println(checkResp(fahrenheitConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(fahrenheitConversions(temperature, targetUnits), response))
 	case inputUnit == "rankine":
-		fmt.Println(checkResp(rankineConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(rankineConversions(temperature, targetUnits), response))
 	}
 }

@@ -5,6 +5,7 @@ services:
 
 script:
   - docker build -t srechallenge .
+  - docker run -it srechallenge go test 
   
 after_success:
   - docker login -u $REGISTRY_USER -p $REGISTRY_PASS

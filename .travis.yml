@@ -6,12 +6,7 @@ services:
 script:
   - docker build -t srechallenge .
   
-deploy:
-  provider: script
-  script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-    - docker tag srechallenge srechallenge/srechallenge:latest 
-    - docker push srechallenge/srechallenge:latest
-    
-  on:
-    branch: master
+after_success:
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+  - docker tag srechallenge srechallenge/srechallenge:latest 
+  - docker push srechallenge/srechallenge:latest

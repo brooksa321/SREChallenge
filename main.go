@@ -31,7 +31,7 @@ func celsiusConversions(temp float64, target string) float64 {
 	case target == "kelvin":
 		celsConv = temp + 273.15
 	case target == "fahrenheit":
-		celsConv = temp*(9/5) + 32
+		celsConv = temp*9/5 + 32
 	case target == "rankine":
 		celsConv = (temp + 273.15) * (9 / 5)
 	}
@@ -44,9 +44,10 @@ func fahrenheitConversions(temp float64, target string) float64 {
 	var fahrConv float64
 	switch {
 	case target == "kelvin":
-		fahrConv = (temp + 459.67) * (5 / 9)
+		fahrConv = (temp + 459.67) * 5 / 9
 	case target == "celsius":
-		fahrConv = (temp - 32) * (5 / 9)
+		fahrConv = (temp - 32) * 5 / 9
+		fmt.Println(fahrConv)
 	case target == "rankine":
 		fahrConv = temp + 459.67
 	}
@@ -59,11 +60,11 @@ func rankineConversions(temp float64, target string) float64 {
 	var rankConv float64
 	switch {
 	case target == "kelvin":
-		rankConv = temp * (5 / 9)
+		rankConv = temp * 5 / 9
 	case target == "fahrenheit":
 		rankConv = temp - 459.67
 	case target == "celsius":
-		rankConv = (temp - 491.67) * (5 / 9)
+		rankConv = (temp - 491.67) * 5 / 9
 	}
 
 	return rankConv

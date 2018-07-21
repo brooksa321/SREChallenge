@@ -27,6 +27,12 @@ func TestConvert(t *testing.T) {
 				test.target, actual, test.expected)
 		}
 	}
+	for _, test := range strToFloatTest {
+		if actual := strToFloat(test.input); actual != test.expected {
+			t.Errorf("Convert to Float %v = %v, expected %v.",
+				test.input, actual, test.expected)
+		}
+	}
 }
 
 // func BenchmarkConvert(b *testing.B) {

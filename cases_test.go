@@ -40,4 +40,11 @@ var rankineTests = []struct {
 	{84.2, "kelvin", 46.8},
 }
 
-var 
+var strToFloatTest = []struct {
+	input    string
+	expected float64
+}{
+	{"45.67", 45.7},
+	{"45.64", 45.6},
+	{"45", 45},
+}

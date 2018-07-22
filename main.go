@@ -100,11 +100,19 @@ func checkResp(answer float64, response float64) string {
 	return check
 }
 
+//Rounds temperatures to ones place
 func roundFloat(temp float64) float64 {
 	rounded := fmt.Sprintf("%.1f", temp)
 	newFloat, _ := strconv.ParseFloat(rounded, 64)
 
 	return newFloat
+}
+
+//Confirms a valid unit for conversion was entered
+func unitValidation(unit string) {
+	if unit != "rankine" && unit != "celsius" && unit != "fahrenheit" && unit != "kelvin" {
+		log.Fatalln("INVALID")
+	}
 }
 
 func main() {
@@ -117,9 +125,9 @@ func main() {
 	//Allow teacher to input target conversion units
 	unitReader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter Target Units: ")
-	targetUnits, _ := unitReader.ReadString('\n')
-	targetUnits = strings.ToLower(targetUnits)
-	targetUnits = strings.TrimSuffix(targetUnits, "\n")
+	targetUnit, _ := unitReader.ReadString('\n')
+	targetUnit = strings.ToLower(targetUnit)
+	targetUnit = strings.TrimSuffix(targetUnit, "\n")
 
 	//Allow teacher to input Student Resp
 	respReader := bufio.NewReader(os.Stdin)
@@ -133,6 +141,10 @@ func main() {
 	//Set input Unit
 	inputUnit := strings.ToLower(inputSplit[1])
 
+	//Run unit validations
+	unitValidation(inputUnit)
+	unitValidation(targetUnit)
+
 	//Set and error check input temp
 	temperature := strToFloat(inputSplit[0])
 	response := strToFloat(inputResp)
@@ -140,12 +152,12 @@ func main() {
 	//Selects which conversion to run based on input unit
 	switch {
 	case inputUnit == "kelvin":
-		fmt.Println("The student is " + checkResp(kelvinConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(kelvinConversions(temperature, targetUnit), response))
 	case inputUnit == "celsius":
-		fmt.Println("The student is " + checkResp(celsiusConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(celsiusConversions(temperature, targetUnit), response))
 	case inputUnit == "fahrenheit":
-		fmt.Println("The student is " + checkResp(fahrenheitConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(fahrenheitConversions(temperature, targetUnit), response))
 	case inputUnit == "rankine":
-		fmt.Println("The student is " + checkResp(rankineConversions(temperature, targetUnits), response))
+		fmt.Println("The student is " + checkResp(rankineConversions(temperature, targetUnit), response))
 	}
 }
